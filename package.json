@@ -1,0 +1,27 @@
+{
+  "name": "comics-service",
+  "version": "1.0.0",
+  "description": "Simple CRUD service for comics store",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "start:nodemon": "nodemon app.js",
+    "lint": "eslint routes",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Kristina Shatts",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "connect": "^3.7.0",
+    "express": "^4.17.1",
+    "express-validator": "^6.1.1",
+    "mongoose": "^5.6.9"
+  },
+  "devDependencies": {
+    "eslint": "^5.16.0",
+    "eslint-config-airbnb-base": "^13.2.0",
+    "eslint-plugin-import": "^2.18.2",
+    "nodemon": "^1.19.1"
+  }
+}
