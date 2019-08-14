@@ -48,4 +48,4 @@ const comicsSchema = new Schema({
     writer: [String],
 });
 
-module.exports = mongoose.model('Comics', comicsSchema);
+export const Comics = mongoose.model('Comics', comicsSchema);

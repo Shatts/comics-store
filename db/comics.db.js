@@ -1,16 +1,15 @@
-const Comics = require('../models/comics.model');
+import * as Comics from "mongoose";
 
-async function create(comics) {
-    comics.save(function (err) {
+export async function create(comics) {
+    comics.save((err) => {
         if (err) throw err;
     });
 }
 
-async function findAll() {
+export async function findAll() {
     return Comics.find({}).lean();
 }
 
-module.exports = {
-    create,
-    findAll
-};
+export async function findOne(comicsId) {
+    return Comics.findOne({ _id: comicsId }).lean();
+}

@@ -1,16 +1,11 @@
-const express = require('express'),
-    comicsRouter = require('./routes/comics'),
-    characterRouter = require('./routes/character'),
-    personRouter = require('./routes/person'),
-    mongoose = require('mongoose'),
-    app = express(),
-    bodyParser = require('body-parser');
+import express from 'express';
+import mongoose from 'mongoose';
+import bodyParser from 'body-parser';
+import {comicsRouter} from "./routes/comics.js";
 
+const app = express();
 app.use(bodyParser.json());
 app.use('/comics', comicsRouter);
-/*app.use('/characters', characterRouter);
-app.use('/persons', personRouter);*/
-
 
 const mongoDB = 'mongodb+srv://Kris:FSno3WQDXSx7Ld5R@clustercomics-bdljh.mongodb.net/test?retryWrites=true&w=majority';
 mongoose.connect(mongoDB, {dbName: 'site', useNewUrlParser: true});

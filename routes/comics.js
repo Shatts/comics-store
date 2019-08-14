@@ -1,11 +1,10 @@
-const express = require('express');
-const comicsController = require('../controllers/comics.controller');
+import express from 'express';
+import {getComics, getComicsById, postComics} from "../controllers/comics.controller.js";
 
-const comicsRouter = express.Router();
-comicsRouter.get('/', comicsController.getComics);
-comicsRouter.get('/:id', comicsController.getComicsById);
-comicsRouter.post('/', comicsController.postComics);
-comicsRouter.patch('/', comicsController.getComicsById);
-comicsRouter.delete('/:id', comicsController.getComicsById);
+export const comicsRouter = express.Router();
+comicsRouter.get('/', getComics);
+comicsRouter.get('/:id', getComicsById);
+comicsRouter.post('/', postComics);
+comicsRouter.patch('/', getComicsById);
+comicsRouter.delete('/:id', getComicsById);
 
-module.exports = comicsRouter;
