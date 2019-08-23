@@ -2,12 +2,12 @@
   "name": "comics-service",
   "version": "1.0.0",
   "description": "Simple CRUD service for comics store",
-  "main": "app.js",
+  "main": "src/app.js",
   "type": "module",
   "scripts": {
-    "start": "node --experimental-modules app.js",
-    "start:nodemon": "nodemon --experimental-modules app.js",
-    "lint": "eslint routes",
+    "start": "node --experimental-modules src/app.js",
+    "start:nodemon": "nodemon --experimental-modules src/app.js",
+    "lint": "eslint src/routes",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Kristina Shatts",
@@ -15,6 +15,7 @@
   "dependencies": {
     "body-parser": "^1.19.0",
     "connect": "^3.7.0",
+    "dotenv": "^8.1.0",
     "express": "^4.17.1",
     "express-validator": "^6.1.1",
     "mongoose": "^5.6.9"

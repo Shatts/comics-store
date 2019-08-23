@@ -1,14 +1,17 @@
-const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
+import mongoose from 'mongoose';
+import { comicsTypeEnum } from './comics.helper.js';
+import { gallerySchema } from './gallery.model.js';
 
+//TODO: Rename comics to comicBook
+const Schema = mongoose.Schema;
 const comicsSchema = new Schema({
     name: {
         type: String,
-        required: true
+        required: true,
     },
     price: {
         type: Number,
-        required: true
+        required: true,
     },
     description: String,
     series: String,
@@ -16,20 +19,20 @@ const comicsSchema = new Schema({
     rating: String,
     onSaleDate: {
         type: Date,
-        required: true
+        required: true,
     },
     coverImage: {
         type: String,
-        required: true
+        required: true,
     },
     gallery: {
-        type: [String],
-        required: true
+        type: [gallerySchema],
+        //required: true,
     },
     type: {
         type: String,
         required: true,
-        enum: ['COMIC BOOK', 'GRAPHIC NOVEL']
+        enum: [comicsTypeEnum.comicBook, comicsTypeEnum.graphicNovel],
     },
     binding: String,
     volume: Number,
