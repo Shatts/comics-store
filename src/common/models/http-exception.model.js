@@ -16,3 +16,9 @@ export class BadRequestException extends HttpException{
         super(400, message);
     }
 }
+
+export class ServiceUnavailableException extends HttpException{
+    constructor(message) {
+        super(503, message);
+    }
+}

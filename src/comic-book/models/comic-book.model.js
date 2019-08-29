@@ -1,10 +1,10 @@
 import mongoose from 'mongoose';
-import { comicsTypeEnum } from './comics.helper.js';
+import { comicsTypeEnum } from './comic-book.helper.js';
 import { gallerySchema } from './gallery.model.js';
 
 //TODO: Rename comics to comicBook
 const Schema = mongoose.Schema;
-const comicsSchema = new Schema({
+const comicBookSchema = new Schema({
     name: {
         type: String,
         required: true,
@@ -27,7 +27,7 @@ const comicsSchema = new Schema({
     },
     gallery: {
         type: [gallerySchema],
-        //required: true,
+        required: true,
     },
     type: {
         type: String,
@@ -51,4 +51,4 @@ const comicsSchema = new Schema({
     writer: [String],
 });
 
-export const Comics = mongoose.model('Comics', comicsSchema);
+export const ComicBook = mongoose.model('ComicBook', comicBookSchema);

@@ -8,6 +8,9 @@ export const CustomErrorsEnum = Object.freeze(
         'isIn': 'Value must be type of',
         'isInt': 'Value must be integer number',
         'isArray': 'Value must be an array',
-        'isLengthMin': 'Length of the value must be grater than'
+        'isLengthMin': 'Length of the value must be greater than',
+        'isArrayOfStrings': 'All values in array must not be empty strings',
+        'isOneLetter': 'Length of value must be not longer than one letter',
+        'isDate': 'Value must be in ISO date format',
     },
 );
