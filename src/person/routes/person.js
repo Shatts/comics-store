@@ -1,13 +1,13 @@
-/*
-const express = require('express');
-const comicsController = require('../controllers/comics.controller');
+import express from 'express';
+import { deletePerson, getPersonById, getPersons, postPerson } from '../controllers/person.controller.js';
 
-const personRouter = express.Router();
-personRouter.get('/', comicsController.getComics);
-personRouter.get('/:id', comicsController.getComicsById);
-personRouter.post('/', comicsController.createComics);
-personRouter.patch('/', comicsController.getComicsById);
-personRouter.delete('/:id', comicsController.getComicsById);
+export const personRouter = express.Router();
 
-module.exports = personRouter;
-*/
+personRouter.post('/', postPerson);
+
+personRouter.get('/', getPersons);
+
+personRouter.get('/:id', getPersonById);
+
+personRouter.delete('/:id', deletePerson);
+

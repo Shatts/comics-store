@@ -11,6 +11,12 @@ export class NotFoundException extends HttpException{
     }
 }
 
+export class CustomNotFoundException extends HttpException{
+    constructor(name, id) {
+        super(404, `${name} with id ${id} was not found.`);
+    }
+}
+
 export class BadRequestException extends HttpException{
     constructor(message) {
         super(400, message);

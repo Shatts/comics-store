@@ -1,15 +1,29 @@
 import mongoose from 'mongoose';
-import dotenv from 'dotenv';
-
-dotenv.config();
-const {
-    MONGO_USER,
-    MONGO_PASSWORD,
-    MONGO_PATH,
-    DATABASE_NAME,
-} = process.env;
-const mongoDB = `mongodb+srv://${MONGO_USER}:${MONGO_PASSWORD}@${MONGO_PATH}?retryWrites=true&w=majority`;
-mongoose.connect(mongoDB, { dbName: DATABASE_NAME, useNewUrlParser: true });
+import { ServiceUnavailableException } from './models/http-exception.model.js';
 mongoose.Promise = global.Promise;
-export const db = mongoose.connection;
 
+export class DatabaseConnection {
+    options;
+    mongoDb;
+
+    constructor(options) {
+        this.options = options;
+    }
+
+    createConnectionAtlas() {
+        const connectionOptions = this.options.additionalOptions ? `?${this.options.additionalOptions}` : '';
+        this.mongoDb = `mongodb+srv://${this.options.mongoUser}:${this.options.password}@${this.options.path}${connectionOptions}`;
+        return this;
+    }
+
+    async connect() {
+        try {
+            await mongoose.connect(this.mongoDb, {
+                dbName: this.options.dbName,
+                useNewUrlParser: this.options.isNewUrlParser,
+            });
+        } catch (e) {
+            throw new ServiceUnavailableException('Database is unavailable right now. Please try later');
+        }
+    }
+}

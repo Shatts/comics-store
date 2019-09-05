@@ -6,15 +6,13 @@ import { filterValidation } from '../utils/comic-book.validation.js';
 
 export const comicsRouter = express.Router();
 
-comicsRouter.post('/', bodyComicsValidation, validationMiddleware);
+comicsRouter.post('/', validationMiddleware(bodyComicsValidation));
 comicsRouter.post('/', postComicBook);
 
-comicsRouter.get('/', filterValidation, validationMiddleware);
+comicsRouter.get('/', validationMiddleware(filterValidation));
 comicsRouter.get('/', getComicBooks);
 
 comicsRouter.get('/:id', getComicBookById);
-
-comicsRouter.patch('/', getComicBookById);
 
 comicsRouter.delete('/:id', deleteComicBook);
 

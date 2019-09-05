@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import { databaseCharacterName } from './character.helper.js';
 
 const Schema = mongoose.Schema;
 const characterSchema = new Schema({
@@ -35,4 +36,4 @@ const characterSchema = new Schema({
     occupation: String,
 });
 
-export const Character = mongoose.model('Character', characterSchema);
+export const Character = mongoose.model(databaseCharacterName, characterSchema);

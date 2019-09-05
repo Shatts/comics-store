@@ -1,5 +1,3 @@
-import { ServiceUnavailableException } from '../models/http-exception.model.js';
-
 export class RequestsToDatabase {
     databaseModel;
 
@@ -7,12 +5,8 @@ export class RequestsToDatabase {
         this.databaseModel = databaseModel;
     }
 
-    create(dataToAdd) {
-        this.databaseModel.create(dataToAdd, (err, data) => {
-            if (err) throw new ServiceUnavailableException('Database is unavailable right now. Please try later');
-            console.log(data);
-        });
-        return true;
+    async create(dataToAdd) {
+        return new this.databaseModel(dataToAdd).save();
     }
 
     findAll(filters) {
@@ -21,8 +15,8 @@ export class RequestsToDatabase {
         }).lean();
     }
 
-    findOne(id) {
-        return this.databaseModel.findOne({ _id: id }).lean();
+    async findOne(id) {
+        return this.databaseModel.findOne({ _id: id }).lean().exec();
     }
 
     deleteOne(id) {

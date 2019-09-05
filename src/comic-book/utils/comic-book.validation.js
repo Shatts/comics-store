@@ -1,16 +1,9 @@
 import { CustomErrorsEnum } from '../../common/models/custom-error.enum.js';
 import { comicsTypeEnum } from '../models/comic-book.helper.js';
 import checkAPIs from 'express-validator';
+import { checkIfArrayOfStringsAndNotEmpty, checkIfWordWithOneLetter } from '../../common/services/validation.service.js';
 
 const { body, query } = checkAPIs;
-
-function checkIfArrayOfStringsAndNotEmpty(value) {
-    return value.every((val) => typeof val === 'string' && val.length)
-}
-
-function checkIfWordWithOneLetter(value) {
-    return value.length === 1;
-}
 
 export const bodyComicsValidation = [
     body('name')

@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import { databasePersonName } from './person.helper.js';
 
 const Schema = mongoose.Schema;
 const personSchema = new Schema({
@@ -12,4 +13,4 @@ const personSchema = new Schema({
     },
 });
 
-export const Person = mongoose.model('Person', personSchema);
+export const Person = mongoose.model(databasePersonName, personSchema);

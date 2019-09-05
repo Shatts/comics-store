@@ -1,13 +1,14 @@
 import mongoose from 'mongoose';
 import { comicsTypeEnum } from './comic-book.helper.js';
 import { gallerySchema } from './gallery.model.js';
+import { databaseComicBookName } from './comic-book.helper.js';
 
-//TODO: Rename comics to comicBook
 const Schema = mongoose.Schema;
 const comicBookSchema = new Schema({
     name: {
         type: String,
         required: true,
+        unique: true,
     },
     price: {
         type: Number,
@@ -51,4 +52,4 @@ const comicBookSchema = new Schema({
     writer: [String],
 });
 
-export const ComicBook = mongoose.model('ComicBook', comicBookSchema);
+export const ComicBook = mongoose.model(databaseComicBookName, comicBookSchema);

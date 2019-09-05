@@ -7,4 +7,4 @@ export const gallerySchema = new Schema({
     l: String,
 });
 
-export const Gallery = mongoose.model('Gallery', gallerySchema);
+export const Gallery = mongoose.model('gallery', gallerySchema);

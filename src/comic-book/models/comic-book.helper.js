@@ -4,3 +4,5 @@ export const comicsTypeEnum = Object.freeze(
         'graphicNovel': 'GRAPHIC NOVEL',
     },
 );
+
+export const databaseComicBookName = 'ComicBook';

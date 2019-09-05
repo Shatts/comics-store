@@ -1,13 +1,13 @@
-/*
-const express = require('express');
-const comicsController = require('../controllers/comics.controller');
+import express from 'express';
+import { deleteCharacter, getCharacterById, getCharacters, postCharacter } from '../controllers/character.controller.js';
 
-const characterRouter = express.Router();
-characterRouter.get('/', comicsController.getComics);
-characterRouter.get('/:id', comicsController.getComicsById);
-characterRouter.post('/', comicsController.getComicsById);
-characterRouter.patch('/', comicsController.getComicsById);
-characterRouter.delete('/:id', comicsController.getComicsById);
+export const characterRouter = express.Router();
 
-module.exports = characterRouter;
-*/
+characterRouter.post('/', postCharacter);
+
+characterRouter.get('/', getCharacters);
+
+characterRouter.get('/:id', getCharacterById);
+
+characterRouter.delete('/:id', deleteCharacter);
+
