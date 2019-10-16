@@ -1,7 +1,7 @@
 import express from 'express';
 import bodyParser from 'body-parser';
-import { comicsRouter } from './comic-book/routes/comic-book.js';
 import dotenv from 'dotenv';
+import { comicsRouter } from './comic-book/routes/comic-book.js';
 import { errorMiddleware } from './common/middlewares/exception.middleware.js';
 import { DatabaseConnection } from './common/db.js';
 import { databaseConnectionAtlasOptions } from './common/models/database.config.js';
@@ -19,5 +19,5 @@ app.use('/persons', personRouter);
 app.use(errorMiddleware);
 
 app.listen(process.env.PORT, () => {
-    console.log(`Example app listening on port ${process.env.PORT}!`);
+  console.log(`Example app listening on port ${process.env.PORT}!`);
 });
