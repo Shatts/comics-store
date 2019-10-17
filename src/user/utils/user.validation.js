@@ -1,5 +1,5 @@
 import checkAPIs from 'express-validator';
-import { CustomErrorsEnum } from '../../common/models/custom-error.enum.js';
+import CustomErrorsEnum from '../../common/models/custom-error.enum.js';
 
 const { body } = checkAPIs;
 

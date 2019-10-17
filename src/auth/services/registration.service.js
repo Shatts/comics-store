@@ -1,4 +1,4 @@
-import * as bcrypt from 'bcrypt';
+import bcrypt from 'bcrypt';
 import userService from '../../user/services/user.service.js';
 import UserData from '../../user/models/user.data.model.js';
 
@@ -11,7 +11,7 @@ class RegistrationService {
   }
 
   async createHashedPassword(password) {
-    return bcrypt.hash(password, 20);
+    return bcrypt.hashSync(password, 15);
   }
 }
 

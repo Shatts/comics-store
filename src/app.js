@@ -7,6 +7,7 @@ import { DatabaseConnection } from './common/db.js';
 import { databaseConnectionAtlasOptions } from './common/models/database.config.js';
 import { characterRouter } from './character/routes/character.js';
 import { personRouter } from './person/routes/person.js';
+import authRouter from './auth/routes/auth.js';
 
 dotenv.config();
 const app = express();
@@ -16,6 +17,7 @@ app.use(bodyParser.json());
 app.use('/comics', comicsRouter);
 app.use('/characters', characterRouter);
 app.use('/persons', personRouter);
+app.use('/oauth', authRouter);
 app.use(errorMiddleware);
 
 app.listen(process.env.PORT, () => {

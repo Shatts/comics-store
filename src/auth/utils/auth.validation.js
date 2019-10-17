@@ -1,0 +1,13 @@
+import checkAPIs from 'express-validator';
+import CustomErrorsEnum from '../../common/models/custom-error.enum.js';
+
+const { body } = checkAPIs;
+
+export const refreshTokenValidation = [
+  body('refreshToken')
+    .not()
+    .isEmpty()
+    .withMessage(CustomErrorsEnum.isEmpty)
+    .isString()
+    .withMessage(CustomErrorsEnum.isString),
+];

@@ -6,8 +6,7 @@ export async function registerUser(req, res, next) {
   const userCredentials = req.body;
   try {
     await registrationService.registerUser(userCredentials);
-    // TODO: Check what need to be send if registered
-    res.sendStatus(201);
+    res.sendStatus(200);
   } catch (e) {
     next(e);
   }

@@ -1,34 +1,42 @@
 import bcrypt from 'bcrypt';
-import dotenv from 'dotenv';
-import jwt from 'jsonwebtoken';
-import userService from '../../user/services/user.service';
+import userService from '../../user/services/user.service.js';
 import { UnauthorizedException } from '../../common/models/http-exception.model.js';
-import Authorization from '../models/authorization.model';
-
-
-dotenv.config();
-
-const SECRET_KEY = process.env.secretKey;
+import Authorization from '../models/authorization.model.js';
+import TokenGenerator from './token.generator.service.js';
+import TokenType from '../models/token.type.enum.js';
+import { tokenExpirationInMilliSec } from '../models/token.config.js';
 
 class AuthorizationService {
   async signIn(userCredentials) {
     const user = await userService.findByEmail(userCredentials.email);
+    if (!user) {
+      throw new UnauthorizedException('Credentials data is not valid.');
+    }
     const result = bcrypt.compareSync(userCredentials.password, user.password);
     if (!result) {
-      throw new UnauthorizedException('Password is not valid');
+      throw new UnauthorizedException('Credentials data is not valid.');
     }
 
-    // TODO: Change expiresIn
-    const expiresIn = 60 * 60;
-    const accessToken = jwt.sign({ id: user.id }, SECRET_KEY, { expiresIn });
-    const refreshToken = jwt.sign({ id: user.id }, SECRET_KEY, { expiresIn: expiresIn * 100 });
-
+    const tokenGenerator = new TokenGenerator();
+    const userId = user._id.toString();
+    const refreshToken = await tokenGenerator.generateToken(userId, TokenType.REFRESH_TOKEN);
+    const accessToken = await tokenGenerator.generateToken(userId, TokenType.ACCESS_TOKEN);
     // TODO: Add update method in order to update user model
-    // https://gist.github.com/zmts/802dc9c3510d79fd40f9dc38a12bccfc
-    // https://medium.com/quick-code/jwt-access-and-refresh-token-with-vapor-3-85a0aee5291b
-    //await userService.
 
-    return new Authorization(accessToken, expiresIn, refreshToken);
+    return new Authorization(accessToken, tokenExpirationInMilliSec, refreshToken);
+  }
+
+  /*async updateCredentialsWithRefreshToken(userId, refreshToken) {
+    const expirationDate = new Date(Date.now() + Number(REFRESH_TOKEN_EXPIRES_IN));
+    await userService.updateRefreshToken(userId, refreshToken, expirationDate);
+  }
+
+  removeExpiredRefreshToken(userId) {
+    this.userService.removeExpiredRefreshTokens(userId);
+  }*/
+
+  async refreshAccessToken(refreshToken) {
+
   }
 }
 
