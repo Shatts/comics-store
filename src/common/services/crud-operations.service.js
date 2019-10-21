@@ -9,6 +9,10 @@ class CrudOperationCreator {
     return this.db.create(data);
   }
 
+  patch(id, data) {
+    return this.db.patch(id, data);
+  }
+
   getAll(filters) {
     const constructedFilters = this.buildFilters(filters);
     return this.db.findAll(constructedFilters);

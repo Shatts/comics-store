@@ -1,3 +1,5 @@
+import mongoose from 'mongoose';
+
 export class RequestsToDatabase {
     databaseModel;
 
@@ -5,18 +7,30 @@ export class RequestsToDatabase {
         this.databaseModel = databaseModel;
     }
 
-    async create(dataToAdd) {
+    create(dataToAdd) {
         return new this.databaseModel(dataToAdd).save();
+    }
+
+    update(id, dataToAdd) {
+        return this.databaseModel.findOneAndUpdate({ _id: mongoose.Types.ObjectId(id) }, dataToAdd, { upsert: true })
+          .lean();
+    }
+
+    patch(id, dataToAdd) {
+        return this.databaseModel.update({_id: mongoose.Types.ObjectId(id)}, {$set: dataToAdd}).lean();
     }
 
     findAll(filters) {
         return this.databaseModel.find({
             ...filters
-        }).lean();
+        })
+          .lean();
     }
 
-    async findOne(id) {
-        return this.databaseModel.findOne({ _id: id }).lean().exec();
+    findOne(id) {
+        return this.databaseModel.findOne({ _id: id })
+          .lean()
+          .exec();
     }
 
     deleteOne(id) {

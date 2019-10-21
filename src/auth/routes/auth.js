@@ -4,12 +4,13 @@ import { bodyUserCredentialsValidation, bodyUserValidation } from '../../user/ut
 import { registerUser } from '../controllers/registration.controller.js';
 import { signIn } from '../controllers/authorization.controller.js';
 import { refreshTokenValidation } from '../utils/auth.validation.js';
+import { updateTokens } from '../controllers/authorization.controller.js';
 
 const authRouter = express.Router();
 
 authRouter.post('/register', validationMiddleware(bodyUserValidation), registerUser);
 authRouter.post('/login', validationMiddleware(bodyUserCredentialsValidation), signIn);
-authRouter.post('/refresh-token', validationMiddleware(refreshTokenValidation), signIn);
+authRouter.post('/refresh-token', validationMiddleware(refreshTokenValidation), updateTokens);
 //authRouter.post('/change-password');
 //authRouter.post('/forgot-password', );
 //authRouter.post('/logout');

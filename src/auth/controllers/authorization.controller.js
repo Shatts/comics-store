@@ -12,10 +12,10 @@ export async function signIn(req, res, next) {
   }
 }
 
-export async function refreshToken(req, res, next) {
-  const refreshToken = req.body;
+export async function updateTokens(req, res, next) {
+  const { refreshToken } = req.body;
   try {
-    const tokens = await authService.signIn(userCredentials);
+    const tokens = await authService.updateTokens(refreshToken);
     res.send(tokens);
   } catch (e) {
     next(e);
