@@ -1,11 +1,16 @@
 import jwt from 'jsonwebtoken';
 import {
-  ISSUER, AUDIENCE, refreshTokenExpirationInMilliSec, SECRET_KEY, tokenExpirationInMilliSec,
+  AUDIENCE,
+  ISSUER,
+  refreshTokenExpirationInMilliSec,
+  SECRET_KEY,
+  tokenExpirationInMilliSec,
 } from '../models/token.config.js';
 import TokenType from '../models/token.type.enum.js';
+import { UnauthorizedException } from '../../common/models/http-exception.model.js';
 
 
-class TokenGenerator {
+class TokenService {
   async generateToken(userId, type) {
     const token = {
       type,
@@ -22,9 +27,16 @@ class TokenGenerator {
     return jwt.sign(token, SECRET_KEY, { expiresIn: expirationInMs });
   }
 
-  async decodeToken(token) {
-    return jwt.decode(token);
+  async verifyToken(token) {
+    let decodedToken;
+    try {
+      decodedToken = jwt.verify(token, SECRET_KEY);
+    } catch (e) {
+      throw new UnauthorizedException('The token is expired or invalid.');
+    }
+
+    return decodedToken;
   }
 }
 
-export default TokenGenerator;
+export default TokenService;

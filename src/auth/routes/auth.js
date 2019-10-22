@@ -11,8 +11,9 @@ const authRouter = express.Router();
 authRouter.post('/register', validationMiddleware(bodyUserValidation), registerUser);
 authRouter.post('/login', validationMiddleware(bodyUserCredentialsValidation), signIn);
 authRouter.post('/refresh-token', validationMiddleware(refreshTokenValidation), updateTokens);
-//authRouter.post('/change-password');
+//authRouter.post('/change-password', validationMiddleware());
 //authRouter.post('/forgot-password', );
-//authRouter.post('/logout');
+//authRouter.post('/logout', );
+//https://medium.com/quick-code/handling-authentication-and-authorization-with-node-7f9548fedde8
 
 export default authRouter;

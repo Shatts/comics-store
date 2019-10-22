@@ -17,7 +17,7 @@ export class RequestsToDatabase {
     }
 
     patch(id, dataToAdd) {
-        return this.databaseModel.update({_id: mongoose.Types.ObjectId(id)}, {$set: dataToAdd}).lean();
+        return this.databaseModel.findOneAndUpdate({_id: mongoose.Types.ObjectId(id)}, {$set: dataToAdd}).lean();
     }
 
     findAll(filters) {

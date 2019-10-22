@@ -26,7 +26,7 @@ const userSchema = new Schema({
     type: String,
     required: true,
   },
-  refreshTokens: [Token],
+  refreshToken: Token,
 }, { timestamps: true });
 
 const User = mongoose.model(databaseUserName, userSchema);
