@@ -11,6 +11,7 @@ export class RequestsToDatabase {
         return new this.databaseModel(dataToAdd).save();
     }
 
+    // rename
     update(id, dataToAdd) {
         return this.databaseModel.findOneAndUpdate({ _id: mongoose.Types.ObjectId(id) }, dataToAdd, { upsert: true })
           .lean();
@@ -28,12 +29,14 @@ export class RequestsToDatabase {
     }
 
     findOne(id) {
+        // toDO: return null
         return this.databaseModel.findOne({ _id: id })
           .lean()
           .exec();
     }
 
     deleteOne(id) {
+        // toDO: return boolean
         return this.databaseModel.deleteOne({ _id: id }).lean();
     }
 }

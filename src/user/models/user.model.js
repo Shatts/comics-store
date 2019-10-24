@@ -1,6 +1,7 @@
 import mongoose from 'mongoose';
 import databaseUserName from './user.helper.js';
 
+// toDO: simplify and unify schema creation
 const { Schema } = mongoose;
 const Token = new mongoose.Schema({
   token: {
@@ -12,6 +13,7 @@ const Token = new mongoose.Schema({
     required: true,
   },
 });
+// toDO: implement bullet-proof work with indexes (unique: true)
 const userSchema = new Schema({
   username: {
     type: String,
@@ -21,6 +23,8 @@ const userSchema = new Schema({
     type: String,
     required: true,
     unique: true,
+    // toDO: add trim/lowercase
+    // plus write decorators for data-sanitization for client-requests
   },
   password: {
     type: String,

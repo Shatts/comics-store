@@ -1,5 +1,6 @@
 import dotenv from 'dotenv';
 
+// toDO: move to app.js
 dotenv.config();
 
 export const {

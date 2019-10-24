@@ -70,6 +70,7 @@ class AuthorizationService {
 
     const generatedTokens = await this.generateAndStoreTokens(decodedToken.id);
 
+    // toDO: remove surplus arg: tokenExpirationInMilliSec
     return new Authorization(generatedTokens.accessToken, tokenExpirationInMilliSec, generatedTokens.refreshToken);
   }
 }

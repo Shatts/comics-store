@@ -7,10 +7,11 @@ class RegistrationService {
     // TODO: Add check for existing email
     const encryptedPassword = await this.createHashedPassword(userCredentials.password);
     const user = new UserData(userCredentials.username, userCredentials.email, encryptedPassword);
-    await userService.create(user);
+    await userService.create(userCredentials);
   }
 
   async createHashedPassword(password) {
+    // toDO: make salt dynamic
     return bcrypt.hashSync(password, 15);
   }
 }
