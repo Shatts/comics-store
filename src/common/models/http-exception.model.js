@@ -34,3 +34,9 @@ export class UnauthorizedException extends HttpException {
     super(401, message);
   }
 }
+
+export class ConflictException extends HttpException {
+  constructor(message) {
+    super(409, message);
+  }
+}

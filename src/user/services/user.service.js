@@ -5,11 +5,11 @@ import CrudOperationCreator from '../../common/services/crud-operations.service.
 
 class UserService extends CrudOperationCreator {
   async findByEmail(email) {
-    const user = await this.db.findOneByEmail(email);
-    if (!user) {
+    return this.db.findOneByEmail(email);
+    /*if (!user) {
       throw new CustomNotFoundException(this.db.databaseModel.modelName, email);
     }
-    return user;
+    return user;*/
   }
 
   // eslint-disable-next-line no-unused-vars

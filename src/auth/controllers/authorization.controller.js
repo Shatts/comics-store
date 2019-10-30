@@ -21,3 +21,14 @@ export async function updateTokens(req, res, next) {
     next(e);
   }
 }
+
+export async function changePassword(req, res, next) {
+  const { user } = req;
+  const { newPassword } = req.body;
+  try {
+    await authService.changePassword(user, newPassword);
+    res.send(204);
+  } catch (e) {
+    next(e);
+  }
+}

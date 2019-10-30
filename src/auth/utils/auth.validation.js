@@ -11,3 +11,12 @@ export const refreshTokenValidation = [
     .isString()
     .withMessage(CustomErrorsEnum.isString),
 ];
+
+export const changePasswordValidation = [
+  body('newPassword')
+    .not()
+    .isEmpty()
+    .withMessage(CustomErrorsEnum.isEmpty)
+    .isString()
+    .withMessage(CustomErrorsEnum.isString),
+];

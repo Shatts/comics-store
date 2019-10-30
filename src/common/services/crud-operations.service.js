@@ -19,11 +19,7 @@ class CrudOperationCreator {
   }
 
   async getOne(id) {
-    const data = await this.db.findOne(id);
-    if (!data) {
-      throw new CustomNotFoundException(this.db.databaseModel.modelName, id);
-    }
-    return data;
+    return this.db.findOne(id);
   }
 
   deleteOne(id) {

@@ -8,15 +8,15 @@ import {
   tokenExpirationInMilliSec,
 } from '../models/token.config.js';
 import TokenService from './token.service.js';
+import { PasswordService } from './password.service';
 
 class AuthorizationService {
-
   constructor() {
     this.tokenService = new TokenService();
+    this.passwordService = new PasswordService();
   }
 
   async signIn(userCredentials) {
-    //TODO: Change the implementation of findByEmail to not throw an error if user was not found
     const user = await userService.findByEmail(userCredentials.email);
     if (!user) {
       throw new UnauthorizedException('Credentials data is not valid.');
@@ -55,23 +55,29 @@ class AuthorizationService {
 
   async updateTokens(refreshToken) {
     const decodedToken = await this.tokenService.verifyToken(refreshToken);
-    let user;
+    const user = await userService.getOne(decodedToken.id);
 
-    //TODO: Change not to throw exception
-    try {
-      user = await userService.getOne(decodedToken.id);
-    } catch (e) {
-      throw new UnauthorizedException('The token is expired or invalid.');
-    }
-
-    if (user.refreshToken.token !== refreshToken) {
+    if (!user || user.refreshToken.token !== refreshToken) {
       throw new UnauthorizedException('The token is expired or invalid.');
     }
 
     const generatedTokens = await this.generateAndStoreTokens(decodedToken.id);
 
-    // toDO: remove surplus arg: tokenExpirationInMilliSec
-    return new Authorization(generatedTokens.accessToken, tokenExpirationInMilliSec, generatedTokens.refreshToken);
+    return {
+      accessToken: generatedTokens.accessToken,
+      expirationTime: tokenExpirationInMilliSec,
+      refreshToken: generatedTokens.refreshToken,
+    };
+  }
+
+  async changePassword(user, newPassword) {
+    const userData = await userService.getOne(user.id);
+    const generatedSalt = this.passwordService.generateSalt();
+    const encryptedPassword = this.passwordService.createHashedPassword(newPassword, generatedSalt);
+    await userService.patch(userData.id, {
+      password: encryptedPassword,
+      salt: generatedSalt,
+    });
   }
 }
 
