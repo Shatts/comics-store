@@ -74,10 +74,15 @@ class AuthorizationService {
     };
   }
 
+  // toDO: pick better names for change/reset/forgotPassword methods
+  //  as it is not clear what each of them does having just the name
   async changePassword(user, newPassword) {
+    // toDO: avoid having variables that contain 'Data' as a part of name, as it is to general
+    //  especially when you get User record from DB
     const userData = await userService.getOne(user.id);
     const generatedSalt = this.passwordService.generateSalt();
     const encryptedPassword = this.passwordService.createHashedPassword(newPassword, generatedSalt);
+    // toDO: you need to check current password, so password can not be changed just with token
     await userService.patch(userData.id, {
       password: encryptedPassword,
       salt: generatedSalt,
@@ -99,8 +104,13 @@ class AuthorizationService {
   async resetPassword(id, token, password) {
     const user = await userService.getOne(id);
     if (!user) {
+      // toDO: improve message text. Current one is too obscure
       throw new UnauthorizedException('User is not valid.');
     }
+
+    // toDO: better to convert 'createdAt' here to some specific value,
+    //  as it can be timestamp or date object, in a string,
+    //  so changing the way it is stored in DB may break this code
     const secret = `${user.password} - ${user.createdAt}`;
     const payload = jwt.decode(token, secret);
     if (payload.userId !== user._id) {
