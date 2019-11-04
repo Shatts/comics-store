@@ -11,10 +11,11 @@ import { UnauthorizedException } from '../../common/models/http-exception.model.
 
 
 class TokenService {
-  async generateToken(userId, type) {
+  async generateToken(dataToStore, type) {
     const token = {
       type,
-      id: userId,
+      id: dataToStore.userId,
+      role: dataToStore.role,
       iss: ISSUER,
       aud: AUDIENCE,
     };

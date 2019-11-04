@@ -32,3 +32,25 @@ export async function changePassword(req, res, next) {
     next(e);
   }
 }
+
+export async function forgotPassword(req, res, next) {
+  const { email } = req.body;
+  try {
+    const generatedToken = await authService.forgotPassword(email);
+    res.send(generatedToken);
+  } catch (e) {
+    next(e);
+  }
+}
+
+export async function resetPassword(req, res, next) {
+  const { password } = req.body;
+  const { id, token } = req.params;
+
+  try {
+    await authService.resetPassword(id, token, password);
+    res.send(204);
+  } catch (e) {
+    next(e);
+  }
+}

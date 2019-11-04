@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import databaseUserName from './user.helper.js';
+import databaseUserName, { RolesEnum } from './user.helper.js';
 
 const { Schema } = mongoose;
 const Token = new Schema({
@@ -31,6 +31,12 @@ const userSchema = new Schema({
   password: {
     type: String,
     required: true,
+  },
+  role: {
+    type: String,
+    required: true,
+    enum: [RolesEnum.user, RolesEnum.admin],
+    default: RolesEnum.user,
   },
   salt: {
     type: String,

@@ -2,6 +2,7 @@ import userService from '../../user/services/user.service.js';
 import UserData from '../../user/models/user.data.model.js';
 import { ConflictException } from '../../common/models/http-exception.model.js';
 import { PasswordService } from './password.service.js';
+import { RolesEnum } from '../../user/models/user.helper.js';
 
 class RegistrationService {
   constructor() {
@@ -15,7 +16,8 @@ class RegistrationService {
     }
     const generatedSalt = this.passwordService.generateSalt();
     const encryptedPassword = this.passwordService.createHashedPassword(userCredentials.password, generatedSalt);
-    const userToCreate = new UserData(userCredentials.username, userCredentials.email, encryptedPassword, generatedSalt);
+    // TODO: Delete userdata class
+    const userToCreate = new UserData(userCredentials.username, userCredentials.email, encryptedPassword, generatedSalt, RolesEnum.admin);
     await userService.create(userToCreate);
   }
 }

@@ -20,3 +20,12 @@ export const changePasswordValidation = [
     .isString()
     .withMessage(CustomErrorsEnum.isString),
 ];
+
+export const forgotPasswordValidation = [
+  body('email')
+    .not()
+    .isEmpty()
+    .withMessage(CustomErrorsEnum.isEmpty)
+    .isEmail()
+    .withMessage(CustomErrorsEnum.isEmail),
+];

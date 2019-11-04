@@ -1,0 +1,13 @@
+{
+  "web": {
+    "client_id": "12461635154-3k91l256mapj4t5ndkb1nc1cj83flcac.apps.googleusercontent.com",
+    "project_id": "comics-257921",
+    "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+    "token_uri": "https://oauth2.googleapis.com/token",
+    "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+    "client_secret": "97OROhIF9YKZI-YVEvoVOEDF",
+    "redirect_uris": [
+      "http://localhost:3012/auth/google/callback"
+    ]
+  }
+}
